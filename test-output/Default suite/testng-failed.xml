@@ -3,14 +3,14 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="TestClass.ActlistForCentrallist">
+      <class name="TestClass.ThridPageSocailmedialinks">
         <methods>
-          <include name="verifyActListforCentral"/>
+          <include name="verifythirdpagesbuttons"/>
           <include name="launchBrowser"/>
-          <include name="closeBrowser"/>
           <include name="finish"/>
+          <include name="closeBrowser"/>
         </methods>
-      </class> <!-- TestClass.ActlistForCentrallist -->
+      </class> <!-- TestClass.ThridPageSocailmedialinks -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

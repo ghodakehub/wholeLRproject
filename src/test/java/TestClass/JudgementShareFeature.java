@@ -14,6 +14,7 @@ import UtilityClass.UtilityClass;
 import generic.ConfingData_provider;
 import generic.ForMultiplemailReceipent;
 import generic.NewBaseTest;
+import generic.RetryAnalyzer;
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -22,7 +23,7 @@ import io.qameta.allure.Feature;
 public class JudgementShareFeature extends NewBaseTest {
 
 	
-	@Test
+	@Test(retryAnalyzer = RetryAnalyzer.class)
 	@Description(
 		    "Ensure that the 'Email' share icon on the judgment page functions correctly:\n" +
 		    "- This confirms that users can easily share the judgment via email."

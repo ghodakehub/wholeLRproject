@@ -12,15 +12,16 @@ import UtilityClass.UtilityClass;
 import generic.ConfingData_provider;
 import generic.ForMultiplemailReceipent;
 import generic.NewBaseTest;
+import generic.RetryAnalyzer;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-@Epic("Profile")
-@Feature("Verify savedsearch button")
+@Epic("Save search")
+@Feature("Verify save search functionality button")
 public class SaveSearchFeature extends NewBaseTest {
 	
 	
 
-	@Test
+	@Test(retryAnalyzer = RetryAnalyzer.class)
 	public void verifySearchSaveFunciton() throws InterruptedException, IOException
 	
 	{
@@ -35,14 +36,16 @@ public class SaveSearchFeature extends NewBaseTest {
 	@AfterMethod
 	public void finish(ITestResult result) throws IOException, MessagingException
 	{
-	if(ITestResult.FAILURE==result.getStatus())
+
+		if (result.getStatus() == ITestResult.FAILURE && result.getThrowable() != null)
+	
 	{
 		String screenshot=  UtilityClass.Capaturescreenshot(driver,result.getName() );
 		String testUrl = driver.getCurrentUrl();  
 		 ForMultiplemailReceipent.sendEmail(
            	   driver, new String[]{"ghodake6896@gmail.com"},
-           	    "LR-Profile - SavedSearch",
-           	    "Please check Profile issue coming in SavedSearch , please find the attached screenshot for details." ,
+           	    "LR- save search",
+           	    "Please check Profile issue coming while saved search results  , please find the attached screenshot for details." ,
            	 screenshot , testUrl
            	   
            	);

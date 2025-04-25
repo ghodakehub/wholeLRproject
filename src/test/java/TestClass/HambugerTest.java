@@ -11,6 +11,7 @@ import UtilityClass.UtilityClass;
 import generic.ConfingData_provider;
 import generic.ForMultiplemailReceipent;
 import generic.NewBaseTest;
+import generic.RetryAnalyzer;
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -20,7 +21,7 @@ public class HambugerTest extends NewBaseTest{
 	
 
 	
-	@Test
+	@Test(retryAnalyzer = RetryAnalyzer.class)
 	@Description("Verify that the HamBurgerMenu options is display and working properly")
 	public void HamBugerMenu() throws InterruptedException, IOException
 	

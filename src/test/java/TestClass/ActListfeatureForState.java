@@ -18,6 +18,7 @@ import UtilityClass.UtilityClass;
 import generic.ConfingData_provider;
 import generic.ForMultiplemailReceipent;
 import generic.NewBaseTest;
+import generic.RetryAnalyzer;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
@@ -28,7 +29,7 @@ public class ActListfeatureForState extends NewBaseTest{
 	
 	
 	
-	@Test
+	@Test(retryAnalyzer = RetryAnalyzer.class)
 	@Description("Verify state Act List Links")
 	public void Actlistverifyforstate() throws InterruptedException, IOException
 	

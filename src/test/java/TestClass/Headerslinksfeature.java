@@ -2,19 +2,16 @@ package TestClass;
 
 import java.io.IOException;
 import java.util.List;
-
 import javax.mail.MessagingException;
-import org.testng.ITestResult;
-import org.testng.annotations.AfterMethod;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 import Pomclass.Headerslinks;
 import Pomclass.Login;
-import UtilityClass.UtilityClass;
 import generic.ConfingData_provider;
 import generic.EmailUtility;
-import generic.ForMultiplemailReceipent;
 import generic.Library;
 import generic.NewBaseTest;
+import generic.RetryAnalyzer;
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -23,7 +20,7 @@ import io.qameta.allure.Feature;
 public class Headerslinksfeature extends NewBaseTest{
 
 	
-	@Test
+	@Test(retryAnalyzer = RetryAnalyzer.class)
 	@Description("Verify that the 'Product' and 'Menu' dropdown options in the header are displayed correctly upon clicking.")
 	public void VerifyHeadersLinks() throws InterruptedException, IOException, MessagingException
 	
@@ -35,11 +32,18 @@ public class Headerslinksfeature extends NewBaseTest{
         List<String> brokenLinks = opt.verifySelectedHeaderDropdownOptions(driver);
 
         if (!brokenLinks.isEmpty()) {
-	             String message = "Please check Header options. issue is coming while open it  , See the attached url for details.";
-	             String subject = "Headers Options";
+        	 generic.AllureListeners.captureScreenshot(driver, "Patrol dashboard error");
+	            String[] recipients = {
+	            	    "ghodake6896@gmail.com", 
+	            	    
+	            	};
 
-	             // Send email with failed URLs and screenshots
-	             EmailUtility.sendSummaryEmailWithScreenshots(driver, subject, message, Library.errorUrls, Library.screenshotBytesList);
+	            EmailUtility.sendSummaryEmailWithScreenshots(driver, recipients, 
+	            	    "LR - HeaderOptions",
+	            	    "Please check issue coming on header options , see the attached screenshot for details", 
+	            	   Library.errorUrls, 
+	            	   Library. screenshotBytesList);
+	            Assert.fail("Test Case headreoption");
 	         } else {
 	             System.out.println("Headers options Page opened successfully, no errors found.");
 	         }

@@ -13,6 +13,7 @@ import Pomclass.LoginPageByCoperate;
 import UtilityClass.UtilityClass;
 import generic.ForMultiplemailReceipent;
 import generic.NewBaseTest;
+import generic.RetryAnalyzer;
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -20,7 +21,7 @@ import io.qameta.allure.Feature;
 @Feature("Verify LoginByCorporate")
 public class LoginByCorporate extends NewBaseTest{
 	
-	@Test
+	@Test(retryAnalyzer = RetryAnalyzer.class)
 	@Description(
 		    "Verify that a user can successfully log in using a valid Corporate ID:\n" +
 		    "- Enter a valid Corporate ID, username, and password.\n" +

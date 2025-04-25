@@ -11,6 +11,7 @@ import UtilityClass.UtilityClass;
 import generic.ConfingData_provider;
 import generic.ForMultiplemailReceipent;
 import generic.NewBaseTest;
+import generic.RetryAnalyzer;
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -20,7 +21,7 @@ public class FilterFeature extends NewBaseTest{
 
 	
 	
-	@Test
+	@Test(retryAnalyzer = RetryAnalyzer.class)
 	@Description("Verify the functionality of filter options on the search results page using By courts options Supremecourt ,highcourt ,Tribunal court and verifies the results")
 	public void verifyfilterbycourts() throws InterruptedException, IOException
 	

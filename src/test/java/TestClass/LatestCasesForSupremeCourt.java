@@ -14,7 +14,9 @@ import Pomclass.Login;
 import UtilityClass.UtilityClass;
 import generic.ConfingData_provider;
 import generic.EmailUtility;
+import generic.ForMultiplemailReceipent;
 import generic.NewBaseTest;
+import generic.RetryAnalyzer;
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -24,7 +26,7 @@ public class LatestCasesForSupremeCourt extends NewBaseTest{
 	
 	
 	
-	@Test
+	@Test(retryAnalyzer = RetryAnalyzer.class)
 	@Description(
 		    "Validate the Supreme Court latest cases :\n" +
 		    "- Apply the date filter for the past 60 days.\n" +
@@ -43,11 +45,20 @@ public class LatestCasesForSupremeCourt extends NewBaseTest{
 		 List<String> brokenLinks = cases.checkSupremeCourtCases(driver);
 
 		    if (!brokenLinks.isEmpty()) {
-		             String subject = "LatestCase-Supremecourt";
-		             String message = "Please check 404 Broken issue case Links Found In SupremeCourt";
-		             EmailUtility.sendSummaryEmailWithScreenshots(driver, subject, message, generic.Library.errorUrls, generic.Library.screenshotBytesList);
+		    	generic.AllureListeners.captureScreenshot(driver, "supremecourt error");
+		    	 String screenshot=  UtilityClass.Capaturescreenshot(driver ,"supremecourtcases error" );
+	             	
+         		String testUrl = driver.getCurrentUrl();  
+         		 ForMultiplemailReceipent.sendEmail(
+                    	   driver, new String[]{"ghodake6896@gmail.com"},
+                    	    "Latest cases- Supreme courtcases",
+                    	    "Please check Issue of broken pages detected while checkig Supreme court cases  , please find the attached screenshot for details." ,
+                    	 screenshot , testUrl
+                    	   
+                    	);
+	
 		         } else {
-		             System.out.println("All tabs open successfully");
+		             System.out.println("All cases open successfully");
 		         }
 	
 	}

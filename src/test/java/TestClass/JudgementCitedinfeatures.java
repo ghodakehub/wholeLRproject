@@ -11,6 +11,7 @@ import UtilityClass.UtilityClass;
 import generic.ConfingData_provider;
 import generic.ForMultiplemailReceipent;
 import generic.NewBaseTest;
+import generic.RetryAnalyzer;
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -19,7 +20,7 @@ import io.qameta.allure.Feature;
 public class JudgementCitedinfeatures extends NewBaseTest{
 	
 	
-	@Test
+	@Test(retryAnalyzer = RetryAnalyzer.class)
 	@Description(
 		    "Validate all tabs on the Judgment page and check futureRefernce ,CitedIn, AdvocateDetails and HeadNotes after click on that display the content")
 		    	   

@@ -1,9 +1,11 @@
 package TestClass;
 
 import java.io.IOException;
+import java.time.Duration;
 
 import javax.mail.MessagingException;
 
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.ITestResult;
 import org.testng.Reporter;
 import org.testng.annotations.AfterMethod;
@@ -16,6 +18,7 @@ import UtilityClass.UtilityClass;
 import generic.ConfingData_provider;
 import generic.ForMultiplemailReceipent;
 import generic.NewBaseTest;
+import generic.RetryAnalyzer;
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -25,7 +28,7 @@ public class ThridPageSocailmedialinks extends NewBaseTest{
 
 
 	
-	@Test
+	@Test(retryAnalyzer = RetryAnalyzer.class)
 	@Description("- Check functionality of all social media share icons (WhatsApp, Facebook, Twitter, LinkedIn, Email) present on page and Confirm that clicking each icon opens in a new tab or window")
 	public void verifythirdpagesbuttons() throws InterruptedException, IOException
 	
@@ -35,8 +38,8 @@ public class ThridPageSocailmedialinks extends NewBaseTest{
 		
 		 log.login(ConfingData_provider.Email,ConfingData_provider.Password);
 		 ThirdPageSocialMedialLinks links =new ThirdPageSocialMedialLinks(driver);
-		 links.judgementShare(driver);
-	
+		 links.click();
+		 
 	
 	}
 	@AfterMethod

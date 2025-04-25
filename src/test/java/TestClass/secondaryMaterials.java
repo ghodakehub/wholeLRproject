@@ -15,6 +15,7 @@ import UtilityClass.UtilityClass;
 import generic.ConfingData_provider;
 import generic.ForMultiplemailReceipent;
 import generic.NewBaseTest;
+import generic.RetryAnalyzer;
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -22,7 +23,7 @@ import io.qameta.allure.Feature;
 @Feature("Verify secondary materials button")
 public class secondaryMaterials extends NewBaseTest {
 
-	@Test
+	@Test(retryAnalyzer = RetryAnalyzer.class)
 	@Description("This test verify the all secondary materails buttons and apply by year filter within options and check its display results")
 	public void verifysecondarymaterials() throws InterruptedException, IOException
 	
@@ -37,7 +38,9 @@ public class secondaryMaterials extends NewBaseTest {
 	@AfterMethod
 	public void finish(ITestResult result) throws IOException, MessagingException
 	{
-	if(ITestResult.FAILURE==result.getStatus())
+
+		if (result.getStatus() == ITestResult.FAILURE && result.getThrowable() != null)
+	
 	{
 		String screenshot=  UtilityClass.Capaturescreenshot(driver,result.getName() );
 		String testUrl = driver.getCurrentUrl();  

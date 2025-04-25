@@ -11,6 +11,7 @@ import UtilityClass.UtilityClass;
 import generic.ConfingData_provider;
 import generic.ForMultiplemailReceipent;
 import generic.NewBaseTest;
+import generic.RetryAnalyzer;
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -20,7 +21,7 @@ public class MoveTonotebook extends NewBaseTest{
 
 
 	
-	@Test
+	@Test(retryAnalyzer = RetryAnalyzer.class)
 	@Description(
 		    "Verify all note-level actions under the 'All Notes' section:\n" +
 		    "- Rename: Edit the note title and confirm it gets updated.\n" +

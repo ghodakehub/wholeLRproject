@@ -4,6 +4,7 @@ import org.testng.annotations.Test;
 import Pomclass.Login;
 import generic.ConfingData_provider;
 import generic.NewBaseTest;
+import generic.RetryAnalyzer;
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -12,7 +13,7 @@ import io.qameta.allure.Feature;
 public class LoginTest extends NewBaseTest {
 	
 
-	@Test
+	@Test(retryAnalyzer = RetryAnalyzer.class)
 	@Description(
 		    "Verify that a user can successfully log in using a valid Individual ID:\n" +
 		    "- Enter a valid, username, and password.\n" +

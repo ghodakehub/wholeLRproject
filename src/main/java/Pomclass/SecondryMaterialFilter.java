@@ -123,16 +123,16 @@ public class SecondryMaterialFilter extends BasePage1 {
 	@FindBy(xpath = "//*[@id=\"byreportno\"]/li/div/label/span")
 	private WebElement LawReportfilterfirst;
 
-	@FindBy(xpath = "//*[@id=\"smyearfilter\"]/label")
+	@FindBy(xpath = "//*[@id=\"subtitlefilter\"]/label")
 	private WebElement CADFilter;
 
-	@FindBy(xpath = "//*[@id=\"bysmyear\"]/li/div/label/span")
+	@FindBy(xpath = "//*[@id=\"bysmyear\"]/li[1]/div/label/span")
 	private WebElement CADFilterYearFirst;
 
 	@FindBy(xpath = "//*[@id=\"titlefilter\"]/label")
 	private WebElement TreatiesFilter;
 
-	@FindBy(xpath = "//*[@id=\"bytitle\"]/li/div/label/span")
+	@FindBy(xpath = "//*[@id=\"bytitle\"]/li[1]/div/label/span")
 	private WebElement TreatiesTitleFilter;
 
 	@FindBy(xpath = "//*[@id=\"smyearfilter\"]/label/div")
@@ -144,7 +144,7 @@ public class SecondryMaterialFilter extends BasePage1 {
 	@FindBy(xpath = "//*[@id=\"smyearfilter\"]/label")
 	private WebElement ColumnFilter;
 
-	@FindBy(xpath = "//*[@id=\"bysmyear\"]/li/div/label/span")
+	@FindBy(xpath = "//*[@id=\"bysmyear\"]/li[1]/div/label/span")
 	private WebElement ColumnFilterYearone;
 
 
@@ -247,9 +247,9 @@ public class SecondryMaterialFilter extends BasePage1 {
 	// Constituent Assembly Debates filter
 			CAD.click();
 			Thread.sleep(4000);
-			CADFilter.click();
-			Thread.sleep(3000);
-			CADFilterYearFirst.click();
+			//CADFilter.click();
+			//Thread.sleep(3000);
+			//CADFilterYearFirst.click();
 			Thread.sleep(3000);
 		/*	String actualText5 = result.getText();
 			String ExpectedText5 = "Found : 4 results for query rama";

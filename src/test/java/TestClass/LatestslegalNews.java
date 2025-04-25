@@ -16,12 +16,13 @@ import UtilityClass.UtilityClass;
 import generic.ConfingData_provider;
 import generic.ForMultiplemailReceipent;
 import generic.NewBaseTest;
+import generic.RetryAnalyzer;
 
 public class LatestslegalNews extends NewBaseTest {
 
 
 	
-	@Test
+	@Test(retryAnalyzer = RetryAnalyzer.class)
 	public void verifyLatestLegalNews() throws InterruptedException, IOException
 	
 	{
@@ -32,26 +33,10 @@ public class LatestslegalNews extends NewBaseTest {
 		
 	
 	}
-	@AfterMethod
-	public void finish(ITestResult result) throws IOException, MessagingException
-	{
-	if(ITestResult.FAILURE==result.getStatus())
-	{
-		String screenshot=  UtilityClass.Capaturescreenshot(driver,result.getName() );
-		
-		String testUrl = driver.getCurrentUrl();  
-		 ForMultiplemailReceipent.sendEmail(
-           	  driver, new String[]{"ghodake6896@gmail.com"},
-           	    "Latest Legal_News ",
-           	    "Please check issue coming in Latest Legal News, please find the attached screenshot for details." ,
-           	 screenshot , testUrl
-           	   
-           	);
-	
-	}
+
 
 }
 	
 
 	
-}
+

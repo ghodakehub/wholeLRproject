@@ -16,13 +16,14 @@ import UtilityClass.UtilityClass;
 import generic.ConfingData_provider;
 import generic.ForMultiplemailReceipent;
 import generic.NewBaseTest;
+import generic.RetryAnalyzer;
 import io.qameta.allure.Description;
 
 public class SavedSearchfunctionality extends NewBaseTest {
 	
 
 	
-	@Test
+	@Test(retryAnalyzer = RetryAnalyzer.class)
 	@Description(
 		    "Verify the Profile page loads correctly and displays and savesearch button working properly")
 		    
@@ -41,7 +42,9 @@ public class SavedSearchfunctionality extends NewBaseTest {
 	@AfterMethod
 	public void finish(ITestResult result) throws IOException, MessagingException
 	{
-	if(ITestResult.FAILURE==result.getStatus())
+
+		if (result.getStatus() == ITestResult.FAILURE && result.getThrowable() != null)
+	
 	{
 		String screenshot=  UtilityClass.Capaturescreenshot(driver,result.getName() );
 		String testUrl = driver.getCurrentUrl();  

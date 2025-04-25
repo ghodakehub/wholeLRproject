@@ -14,6 +14,7 @@ import UtilityClass.UtilityClass;
 import generic.ConfingData_provider;
 import generic.ForMultiplemailReceipent;
 import generic.NewBaseTest;
+import generic.RetryAnalyzer;
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -21,7 +22,7 @@ import io.qameta.allure.Feature;
 @Feature("Verify all search options")
 public class SearchBarfeature extends NewBaseTest{
 	
-	@Test
+	@Test(retryAnalyzer = RetryAnalyzer.class)
 	@Description(" verifies that the search functionality works using  enter judge name, act name, ciatation and All search search.")
 	public void verifySearchBarfunction() throws InterruptedException, IOException
 	
@@ -37,7 +38,9 @@ public class SearchBarfeature extends NewBaseTest{
 	@AfterMethod
 	public void finish(ITestResult result) throws IOException, MessagingException
 	{
-	if(ITestResult.FAILURE==result.getStatus())
+
+		if (result.getStatus() == ITestResult.FAILURE && result.getThrowable() != null)
+	
 	{
 		String screenshot=  UtilityClass.Capaturescreenshot(driver,result.getName() );
 		
@@ -45,7 +48,7 @@ public class SearchBarfeature extends NewBaseTest{
 		String testUrl = driver.getCurrentUrl();  
 		 ForMultiplemailReceipent.sendEmail(
            	   driver, new String[]{"ghodake6896@gmail.com"},
-           	    "LR - SearchBarFilter All, Act,JudgeName ,Citations",
+           	    "LR - All search Options",
            	    "Please check SearchFilter issue coming while search by Act, JudgeName, Citations , please find the attached screenshot for details." ,
            	 screenshot , testUrl
            	   

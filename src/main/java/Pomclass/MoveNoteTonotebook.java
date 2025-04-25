@@ -14,8 +14,8 @@ public class MoveNoteTonotebook extends BasePage1 {
 		super(driver);
 	}
 
-	@FindBy(xpath = "//*[@id=\"navbarsExampleDefault\"]/ul/li/a")
-	private WebElement profilename;                  
+	@FindBy(xpath = "(//*[@id=\"firstname\"]/strong)[2]")
+	private WebElement profilename;               
 	
 	@FindBy(linkText = "My Notes")        
 	private WebElement mynotes;

@@ -11,6 +11,7 @@ import UtilityClass.UtilityClass;
 import generic.ConfingData_provider;
 import generic.ForMultiplemailReceipent;
 import generic.NewBaseTest;
+import generic.RetryAnalyzer;
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -19,7 +20,7 @@ import io.qameta.allure.Feature;
 public class Headersoptionsfeatures extends NewBaseTest{
 	
 	
-	@Test
+	@Test(retryAnalyzer = RetryAnalyzer.class)
 	@Description("Verify that the 'Company' and 'Product''Latest case','Profile' dropdown options in the header are displayed correctly upon clicking.")
 	public void VerifyHeadersOptions() throws InterruptedException, IOException
 	

@@ -64,7 +64,7 @@ public class BlogPaginations extends BasePage1 {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         driver.get("https://www.legitquest.com/legal-guide");
 	    String mainWindow = driver.getWindowHandle();
-	    int totalPages = 14; 
+	    int totalPages = 15; 
 	    
 	    for (int page = 1; page <= totalPages; page++) {
 	        System.out.println("Checking Page: " + page);

@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.mail.MessagingException;
 
+import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
@@ -28,35 +29,35 @@ public class CheckBorkenImages extends NewBaseTest {
 		
 	Login log = new Login(driver);
     log.login(ConfingData_provider.Email, ConfingData_provider.Password);
-
+    
     LatestLegalPageBrokenLink2 page = new LatestLegalPageBrokenLink2(driver);
-  
-    page.checkAllArticleImages();
+    List<String> brokenImagePages = page.checkAllArticleImages();
+
+    if (!brokenImagePages.isEmpty()) {
+        
+        String screenshot = UtilityClass.Capaturescreenshot(driver, "BrokenImages");
+
+        StringBuilder body = new StringBuilder("Broken image URLs found:\n\n");
+        for (String url : brokenImagePages) {
+            body.append("🔗 ").append(url).append("\n");
+        }
+
+        String testUrl = driver.getCurrentUrl();
+
+        ForMultiplemailReceipent.sendEmail(
+            driver,
+            new String[]{"ghodake6896@gmail.com"},
+            "LatestLegal News - Broken Images Detected",
+            body.toString() + "\n\nScreenshot is attached.",
+            screenshot,
+            testUrl
+        );
+
+        // Optionally fail the test to reflect in reports
+        Assert.fail("Broken images detected. Details sent via email.");
+    }
 }
-	
-	@AfterMethod
-	public void finish(ITestResult result) throws IOException, MessagingException
-	{
-		 if (ITestResult.FAILURE == result.getStatus()) {
-		        Throwable cause = result.getThrowable();
-		        if (cause != null && cause.getMessage() != null &&
-		            cause.getMessage().contains("verification failed due to error content")) {
-
-		String screenshot=  UtilityClass.Capaturescreenshot(driver,result.getName() );
-	
-		
-		String testUrl = driver.getCurrentUrl();  
-		 ForMultiplemailReceipent.sendEmail(
-           	   driver, new String[]{"ghodake6896@gmail.com"},
-           	    " LatestLegal News -BrokenImages",
-           	    "Please check LatestLegal News issue of broken images  , please find the attached screenshot for details." ,
-           	 screenshot , testUrl
-           	   
-           	);
-	
-	}
-
-}}
+ 
 }
 
    

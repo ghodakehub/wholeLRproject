@@ -17,6 +17,7 @@ import UtilityClass.UtilityClass;
 import generic.ConfingData_provider;
 import generic.ForMultiplemailReceipent;
 import generic.NewBaseTest;
+import generic.RetryAnalyzer;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
@@ -27,7 +28,7 @@ public class ActListCentralTimeline extends NewBaseTest {
 
 
 	
-	@Test
+	@Test(retryAnalyzer = RetryAnalyzer.class)
 	@Description("Verify Central Act List")
 	public void Actlistverify() throws InterruptedException, IOException
 	

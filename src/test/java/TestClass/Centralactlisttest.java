@@ -5,12 +5,14 @@ import java.util.List;
 
 import javax.mail.MessagingException;
 
+import org.testng.Assert;
 import org.testng.annotations.Test;
 import Pomclass.CentralActList;
 import Pomclass.Login;
 import generic.ConfingData_provider;
 import generic.EmailUtility;
 import generic.NewBaseTest;
+import generic.RetryAnalyzer;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
@@ -21,7 +23,7 @@ public class Centralactlisttest extends NewBaseTest {
 
 
 	
-	@Test
+	@Test(retryAnalyzer = RetryAnalyzer.class)
 	@Description("Verify all Type of central Links and paginations")
 	public void Actlistverify() throws InterruptedException, IOException, MessagingException
 	
@@ -38,9 +40,20 @@ public class Centralactlisttest extends NewBaseTest {
 		 
 		 List<String> brokenUrls = central.checkAllActLinks();
 		 if (!brokenUrls.isEmpty()) {
-		     String subject = "CentralActlist";
-             String message = "Please check 404 Broken Act Links Found on CentralActlist";
-             EmailUtility.sendSummaryEmailWithScreenshots(driver, subject, message, generic.Library.errorUrls, generic.Library.screenshotBytesList);
+			 generic.AllureListeners.captureScreenshot(driver, "Actlistpage error");
+	            String[] recipients = {
+	            	    "ghodake6896@gmail.com"
+	            	    
+	            	     
+	            	    
+	            	};
+
+	            EmailUtility.sendSummaryEmailWithScreenshots(driver, recipients, 
+	            	    "CentralActlist Links",
+	            	    "Please check issue coming on central actlist links , see the attached screenshot for details", 
+	            	  generic. Library.errorUrls, 
+	            	  generic.  Library. screenshotBytesList);
+	            Assert.fail("Test Case Failed: LR changepassword page");
          } 
                 else{
                 	System.out.println();

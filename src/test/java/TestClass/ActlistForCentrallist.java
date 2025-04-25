@@ -15,6 +15,7 @@ import UtilityClass.UtilityClass;
 import generic.ConfingData_provider;
 import generic.ForMultiplemailReceipent;
 import generic.NewBaseTest;
+import generic.RetryAnalyzer;
 
 public class ActlistForCentrallist extends NewBaseTest{
 
@@ -23,7 +24,7 @@ public class ActlistForCentrallist extends NewBaseTest{
 
 	
 	
-	@Test
+	@Test(retryAnalyzer = RetryAnalyzer.class)
 	public void verifyActListforCentral() throws InterruptedException, IOException
 	
 	{

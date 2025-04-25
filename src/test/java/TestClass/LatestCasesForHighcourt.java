@@ -8,9 +8,13 @@ import org.testng.annotations.Test;
 import Pomclass.LatestCasesOF_Highcourts;
 import Pomclass.LatestSupremeCourtCases;
 import Pomclass.Login;
+import UtilityClass.UtilityClass;
+import generic.AllureListeners;
 import generic.ConfingData_provider;
 import generic.EmailUtility;
+import generic.ForMultiplemailReceipent;
 import generic.NewBaseTest;
+import generic.RetryAnalyzer;
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -21,7 +25,7 @@ public class LatestCasesForHighcourt extends NewBaseTest{
 	
 	
 	
-	@Test
+	@Test(retryAnalyzer = RetryAnalyzer.class)
 	@Description(
 		    "Validate the High Court latest cases :\n" +
 		    "- Apply the date filter for the past 60 days.\n" +
@@ -39,11 +43,19 @@ public class LatestCasesForHighcourt extends NewBaseTest{
 		 List<String> brokenLinks = cases1.CheckAllcaesLinksofHighcourtCases(driver);
 
 		    if (!brokenLinks.isEmpty()) {
-		             String subject = "LatestCase-HighCourt";
-		             String message = "Please check 404 Broken issue case Links Found In HighCourt";
-		             EmailUtility.sendSummaryEmailWithScreenshots(driver, subject, message, generic.Library.errorUrls, generic.Library.screenshotBytesList);
-		         } else {
-		             System.out.println("All tabs open successfully");
+		    	generic.AllureListeners.captureScreenshot(driver, "highcourtcases page error");
+                 String screenshot=  UtilityClass.Capaturescreenshot(driver ,"Highcourtcase error" );
+             	
+         		
+         		String testUrl = driver.getCurrentUrl();  
+         		 ForMultiplemailReceipent.sendEmail(
+                    	   driver, new String[]{"ghodake6896@gmail.com"},
+                    	    "Latest cases- High courtcase",
+                    	    "Please check Issue of broken pages detected while checkig high court cases  , please find the attached screenshot for details." ,
+                    	 screenshot , testUrl
+                    	   
+                    	);
+		             System.out.println("All cases open successfully");
 		         }
 	
 	}

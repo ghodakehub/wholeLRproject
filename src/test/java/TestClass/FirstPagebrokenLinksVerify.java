@@ -33,24 +33,6 @@ public class FirstPagebrokenLinksVerify extends NewBaseTest{
 		FristPageBrokenLink links= new FristPageBrokenLink (driver);
 	     links.brokenLink();
 	
-	}
-	@AfterMethod
-	public void finish(ITestResult result) throws IOException, MessagingException
-	{
-	if(ITestResult.FAILURE==result.getStatus())
-	{
-		String screenshot=  UtilityClass.Capaturescreenshot(driver,result.getName() );
-
-		String testUrl = driver.getCurrentUrl();  
-		 ForMultiplemailReceipent.sendEmail(
-           	   driver, new String[]{"ghodake6896@gmail.com"},
-           	    "Broken Links oF Home page ",
-           	    "Please check find some broken links on home page , please find the attached screenshot for details." ,
-           	 screenshot , testUrl
-           	   
-           	);
-	
-	}
 
 	}
 

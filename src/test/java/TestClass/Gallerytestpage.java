@@ -14,6 +14,7 @@ import UtilityClass.UtilityClass;
 import generic.ConfingData_provider;
 import generic.ForMultiplemailReceipent;
 import generic.NewBaseTest;
+import generic.RetryAnalyzer;
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -21,7 +22,7 @@ import io.qameta.allure.Feature;
 @Feature("Verify GalleryPage")
 public class Gallerytestpage extends NewBaseTest{
 	
-	@Test
+	@Test(retryAnalyzer = RetryAnalyzer.class)
 	@Description("Verify that the Gallery page is accessible from the website footer and loads all expected images/content.")
 	public void Actlistverify() throws InterruptedException, IOException
 	

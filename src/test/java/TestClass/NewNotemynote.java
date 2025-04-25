@@ -12,13 +12,14 @@ import UtilityClass.UtilityClass;
 import generic.ConfingData_provider;
 import generic.ForMultiplemailReceipent;
 import generic.NewBaseTest;
+import generic.RetryAnalyzer;
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 @Epic("Profile - My Note")
 @Feature("Verify Nootebook Option")
 public class NewNotemynote extends NewBaseTest {
-	@Test
+	@Test(retryAnalyzer = RetryAnalyzer.class)
 	@Description(
 		    "Verify 'Nootebook' functionality under 'My note':\n" +
 		    "- Ensure user can create a nootebook with title and add discriptions" +

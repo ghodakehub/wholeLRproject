@@ -1,20 +1,10 @@
 package Pomclass;
 
-import java.time.Duration;
-import java.util.List;
-import java.util.Set;
-
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.Reporter;
-
-import generic.Library;
 import generic.SwitchWindow;
 
 public class ThirdPageSocialMedialLinks extends BasePage1 {
@@ -22,10 +12,14 @@ public class ThirdPageSocialMedialLinks extends BasePage1 {
 	public ThirdPageSocialMedialLinks(WebDriver driver) {
 		super(driver);
 	}
+
+	@FindBy(xpath = "(//button[@type='button'])[4]") // LoginButton
+	private WebElement loginbtn;
+
 	@FindBy(xpath = "//input[@id='search']") // Main Search Box
 	private WebElement searchbox;
 
-	@FindBy(xpath = "//div[@class='search-btn']") // Main Search Icon (Button)
+	@FindBy(xpath = "//*[@id=\"btnSearch\"]/i") // Main Search Icon (Button)
 	private WebElement SearchButton;
 
 	@FindBy(xpath = "//*[@id=\"select-dropdown\"]/div/div/ul/li[1]/div/div/label/span") // All
@@ -43,10 +37,10 @@ public class ThirdPageSocialMedialLinks extends BasePage1 {
 	@FindBy(xpath = "//*[@id=\"share_judgment_btn\"]") // share button for judgment share
 	private WebElement share;
 
-	@FindBy(xpath = "//*[@id=\"share\"]/li[1]/button") // what's app share button for judgment share
+	@FindBy(xpath = "//*[@id=\"share\"]/li[1]/button/img") // what's app share button for judgment share
 	private WebElement whatsapp;
 
-	@FindBy(xpath = "//*[@id=\"main_block\"]/div[1]/h2") // what's app page for judgment share
+	@FindBy(xpath = "//h2[contains(text(), 'Send the following on WhatsApp')]") // what's app page for judgment share
 	private WebElement whatsapppage;
 
 	@FindBy(xpath = "//*[@id=\"share\"]/li[2]/button/img") // FB share button for judgment share
@@ -69,89 +63,151 @@ public class ThirdPageSocialMedialLinks extends BasePage1 {
 	
 	@FindBy(xpath = "/html/body/div[1]/main/div[20]/div/div/div[2]/div[1]/p")
 	private WebElement Jsharetext;
+	
+
+	public WebElement getloginbtn() {
+		return loginbtn;
+	}
+
+	public WebElement getsearchbox() {
+		return searchbox;
+	}
+
+	public WebElement getSearchButton() {
+		return SearchButton;
+	}
+
+	public WebElement getAllmenu() {
+		return Allmenu;
+	}
+
+	public WebElement getemail() {
+		return email;
+	}
+
+	public WebElement getemailbox() {
+		return emailbox;
+	}
+
+	public WebElement getshare() {
+		return share;
+	}
+
+	public WebElement getwhatsapp() {
+		return whatsapp;
+	}
+
+	public WebElement getwhatsapppage() {
+		return whatsapppage;
+	}
+
+	public WebElement getfb() {
+		return fb;
+	}
+
+	public WebElement getFBApp() {
+		return FBApp;
+	}
+
+	public WebElement gettwitter() {
+		return twitter;
+	}
+
+	public WebElement gettwitterpage() {
+		return twitterpage;
+	}
+
+	public WebElement getlinkdin() {
+		return linkdin;
+	}
+
+	public WebElement getlinkdinpage() {
+		return linkdinpage;
+	}
+	
+	public WebElement getJsharetext() {
+		return Jsharetext;
+	}
 
 	
-	public void judgementShare(WebDriver driver) throws InterruptedException {
-	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	
+	
+// Actions 	
+	public void click() throws InterruptedException {
+	
+		searchbox.sendKeys("ashiana");
+		Thread.sleep(3000);
+		SearchButton.click();
+		Thread.sleep(3000);
 
-	    // Step 1: Search and Open First Judgment
-	    Library.sendKeys(driver, searchbox, "enter text is search bar", "ashiana");
-	    Thread.sleep(3000);
-	    Library.click(driver, SearchButton, "click on searchbtn");
-	    Thread.sleep(3000);
+		/*
+		 * String parent = BaseLib.driver.getWindowHandle();
+		 * Reporter.log("parent window id is" + parent);
+		 */
 
-	    firstlink.click();
-	    Thread.sleep(3000);
-	    SwitchWindow.switchWindowByIndex(driver, 2);
-	    String caseWindow = driver.getWindowHandle(); // Save the judgment tab
+		firstlink.click();
+		Thread.sleep(3000);
+		SwitchWindow.switchWindowByIndex(driver, 2);
+		Thread.sleep(3000);
+		whatsapp.click();
+		Thread.sleep(3000);
+		SwitchWindow.switchWindowByIndex(driver, 3);
+		Thread.sleep(3000);
+		
+		// verifying the judgment has share with what's app or not
+		String actualtext1 = whatsapppage.getText();
+		String ExpectedText1 = "Send the following on WhatsApp";
+		Assert.assertEquals(actualtext1, ExpectedText1);
+		Reporter.log("What's App page has open successfully", true);
+		Thread.sleep(3000);
+		
+		// judgment has share with FaceBook or no
+		SwitchWindow.switchWindowByIndex(driver, 2);
+		Thread.sleep(3000);
+		fb.click();
+		Thread.sleep(3000);
+		SwitchWindow.switchWindowByIndex(driver, 4);
+		Thread.sleep(3000);
 
-	    // Step 2: Share via Email
-	    email.click();
-	    Thread.sleep(2000);
-	    Library.waitForVisible(driver, emailbox, 5).sendKeys("pratiksha.damodar@legitquest.com");
-	    share.click();
+		// verifying the judgment has share with Facebook app or not
+		String actualtext2 = FBApp.getText();
+		String ExpectedText2 = "Email or phone";
+		Assert.assertEquals(actualtext2, ExpectedText2);
+		Reporter.log("Facebook page has open successfully", true);
+		Thread.sleep(3000);
+		
+		// judgment has share with twitter or no
+		SwitchWindow.switchWindowByIndex(driver, 2);
+		Thread.sleep(3000);
+		twitter.click();
+		SwitchWindow.switchWindowByIndex(driver, 5);
+		Thread.sleep(3000);
 
-	    try {
-	        wait.until(ExpectedConditions.alertIsPresent());
-	        driver.switchTo().alert().accept();
-	        Reporter.log("Email share alert handled successfully", true);
-	    } catch (Exception e) {
-	        System.out.println("No alert present after sharing via email.");
-	    }
+		// verifying the judgment has share with twitter app or not
+		String actualtext3 = twitterpage.getText();
+		String ExpectedText3 = "Want to log in first?";
+		Assert.assertEquals(actualtext3, ExpectedText3);
+		Reporter.log("Twitter page has open successfully", true);
+		Thread.sleep(3000);
+		
 
-	    // Step 3: Share via WhatsApp, Facebook, Twitter, LinkedIn
-	    shareAllPlatforms(driver, caseWindow);
+		// judgment has share with linkdin or no
+		SwitchWindow.switchWindowByIndex(driver, 2);
+		Thread.sleep(3000);
+		linkdin.click();
+		SwitchWindow.switchWindowByIndex(driver, 6);
+		Thread.sleep(3000);
+
+		// verifying the judgment has share with linkdin or not
+		String actualtext4 = linkdinpage.getText();
+		String ExpectedText4 = "New to LinkedIn? Join now";
+		Assert.assertEquals(actualtext4, ExpectedText4);
+		Reporter.log("Linkdin page has open successfully", true);
+		Thread.sleep(3000);
+	
 	}
-	private void shareAllPlatforms(WebDriver driver, String caseWindow) throws InterruptedException {
-	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-	    
-	    // Expected texts for each platform
-	    String[] expectedTexts = {
-	        "Send the following on WhatsApp", // WhatsApp
-	        "Email or phone",                // Facebook
-	        "Want to log in first?",         // Twitter
-	        "New to LinkedIn? Join now"      // LinkedIn
-	    };
-
-	    // Platform names (for logs)
-	    String[] platformNames = { "WhatsApp", "Facebook", "Twitter", "LinkedIn" };
-
-	    for (int i = 0; i < 4; i++) { // Skip index 4 (email icon)
-	        driver.switchTo().window(caseWindow);
-
-	        // Re-fetch the icon list each time (to avoid stale elements)
-	        List<WebElement> icons = driver.findElements(By.xpath("//*[@id=\"share\"]/li/button/img"));
-	        WebElement icon = icons.get(i); // 0 = WhatsApp, 1 = Facebook, etc.
-
-	        Set<String> windowsBefore = driver.getWindowHandles();
-	        icon.click();
-
-	        // Wait for new window/popup
-	        wait.until(driver1 -> driver1.getWindowHandles().size() > windowsBefore.size());
-
-	        Set<String> windowsAfter = driver.getWindowHandles();
-	        windowsAfter.removeAll(windowsBefore); // get the new popup only
-	        String popupWindow = windowsAfter.iterator().next();
-
-	        driver.switchTo().window(popupWindow);
-
-	        String actualText = "";
-	        switch (i) {
-	            case 0:
-	                actualText = wait.until(ExpectedConditions.visibilityOf(whatsapppage)).getText(); break;
-	            case 1:
-	                actualText = wait.until(ExpectedConditions.visibilityOf(FBApp)).getText(); break;
-	            case 2:
-	                actualText = wait.until(ExpectedConditions.visibilityOf(twitterpage)).getText(); break;
-	            case 3:
-	                actualText = wait.until(ExpectedConditions.visibilityOf(linkdinpage)).getText(); break;
-	        }
-
-	        Assert.assertTrue(actualText.contains(expectedTexts[i]), platformNames[i] + " share failed.");
-	        Reporter.log(platformNames[i] + " page opened and verified", true);
-
-	        driver.close();
-	        driver.switchTo().window(caseWindow); // Go back to case tab
-	    }
 	}
-}
+	
+
+	
+

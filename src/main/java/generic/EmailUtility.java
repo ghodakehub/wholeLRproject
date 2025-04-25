@@ -10,7 +10,7 @@ import org.openqa.selenium.WebDriver;
 import java.util.*;
 
 public class EmailUtility {
-	public static void sendEmailWithAttachment(String subject, String messageBody, List<String> recipients, List<byte[]> screenshotBytesList) throws MessagingException {
+	public static void sendEmailWithAttachment(String subject, String messageBody, String[] recipients, List<byte[]> screenshotBytesList) throws MessagingException {
 	    Properties props = new Properties();
 	    props.put("mail.smtp.host", "smtp.gmail.com");
 	    props.put("mail.smtp.port", "465");
@@ -57,21 +57,20 @@ public class EmailUtility {
 	        message.setContent(multipart);
 
 	        Transport.send(message);
-	        System.out.println("✅ Email Sent Successfully with Inline Screenshot!");
+	        System.out.println("Email Sent Successfully with Inline Screenshot!");
 	    } catch (Exception e) {
 	        e.printStackTrace();
-	        System.out.println("❌ Email Sending Failed!");
+	        System.out.println(" Email Sending Failed!");
 	    }
 	}
 	
 	
 
-	public static void sendSummaryEmailWithScreenshots(WebDriver driver, String subject, String message, List<String> failedUrls, List<byte[]> screenshotBytesList) throws MessagingException {
-	    List<String> recipients = Arrays.asList("ghodake6896@gmail.com");
+	public static void sendSummaryEmailWithScreenshots(WebDriver driver, String[] recipients, String subject, String message, List<String> failedUrls, List<byte[]> screenshotBytesList) throws MessagingException {
 
 	    StringBuilder customMessage = new StringBuilder();
-	    customMessage.append("<h2 style='color:blue;'>Patrol Automation Test Cases Execution Report</h2>");
-	    customMessage.append("<h3> QA : <b>Pratiksha Ghodake</b></h3>");
+	    customMessage.append("<h2 style='color:blue;'>LR Automation Test Results</h2>");
+	    customMessage.append("<h3>QA : <b>Pratiksha Ghodake</b></h3>");
 	    customMessage.append("<p>").append(message).append("</p>");
 
 	    if (!failedUrls.isEmpty()) {
@@ -81,14 +80,10 @@ public class EmailUtility {
 	        }
 	    }
 
-	    // Add Inline Screenshots
 	    if (screenshotBytesList != null && !screenshotBytesList.isEmpty()) {
 	        customMessage.append("<br><b>Attached Screenshots Below:</b><br>");
 	    }
 
-	    
-	    
-	    
 	    EmailUtility.sendEmailWithAttachment(subject, customMessage.toString(), recipients, screenshotBytesList);
 	}
 }

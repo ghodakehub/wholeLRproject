@@ -15,6 +15,7 @@ import UtilityClass.UtilityClass;
 import generic.ConfingData_provider;
 import generic.ForMultiplemailReceipent;
 import generic.NewBaseTest;
+import generic.RetryAnalyzer;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
@@ -27,7 +28,7 @@ public class ActListFeatureStatePdf extends NewBaseTest{
 
 	
 	
-	@Test
+	@Test(retryAnalyzer = RetryAnalyzer.class)
 	@Description("Verify StateActList Pdf Button")
 	public void ActlistStatePdf() throws InterruptedException, IOException
 	

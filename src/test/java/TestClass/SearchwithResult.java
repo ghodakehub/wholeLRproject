@@ -13,12 +13,13 @@ import UtilityClass.UtilityClass;
 import generic.ConfingData_provider;
 import generic.ForMultiplemailReceipent;
 import generic.NewBaseTest;
+import generic.RetryAnalyzer;
 
 public class SearchwithResult extends NewBaseTest{
 
 	
 
-	@Test
+	@Test(retryAnalyzer = RetryAnalyzer.class)
 	public void verifySearchrwithinResult() throws InterruptedException, IOException
 	
 	{
@@ -32,7 +33,9 @@ public class SearchwithResult extends NewBaseTest{
 	@AfterMethod
 	public void finish(ITestResult result) throws IOException, MessagingException
 	{
-	if(ITestResult.FAILURE==result.getStatus())
+
+		if (result.getStatus() == ITestResult.FAILURE && result.getThrowable() != null)
+	
 	{
 		String screenshot=  UtilityClass.Capaturescreenshot(driver,result.getName() );
 		String testUrl = driver.getCurrentUrl();  

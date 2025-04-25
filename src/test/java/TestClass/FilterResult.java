@@ -11,17 +11,18 @@ import UtilityClass.UtilityClass;
 import generic.ConfingData_provider;
 import generic.ForMultiplemailReceipent;
 import generic.NewBaseTest;
+import generic.RetryAnalyzer;
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 @Epic("SearchFilter")
-@Feature("Verify SearchFilter within search cases")
+@Feature("Verify Filter within Results")
 public class FilterResult extends NewBaseTest{
 	
 	
 	
-	@Test
-	@Description("Verify the functionality of filter options on the search results page using By courts options Supremecourt ,highcourt ,Tribunal court and verifies the results")
+	@Test(retryAnalyzer = RetryAnalyzer.class)
+	@Description("Verify the Filter within results functionaitly")
 	public void verifysearchfilter() throws InterruptedException, IOException
 	
 	{

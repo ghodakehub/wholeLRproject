@@ -13,6 +13,7 @@ import UtilityClass.UtilityClass;
 import generic.ConfingData_provider;
 import generic.ForMultiplemailReceipent;
 import generic.NewBaseTest;
+import generic.RetryAnalyzer;
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -21,7 +22,7 @@ import io.qameta.allure.Feature;
 @Feature("Verify CentralActlist")
 public class ActListPdfDwn extends NewBaseTest{
 	
-	@Test
+	@Test(retryAnalyzer = RetryAnalyzer.class)
 	@Description("verify downlaod pdf button for central actlist")
 	public void verifyActlistforCentralPdf() throws InterruptedException, IOException
 	

@@ -17,17 +17,17 @@ public class Login extends BasePage1 {
 	@FindBy(xpath = "//*[@id=\"login-modal\"]/div/div/div[2]/div/div[1]/div/a/div")
 	private WebElement lgbtn2;
 
-	@FindBy(xpath = "//*[@id=\"indiviual_form\"]/div/div[1]/div/input")
+	@FindBy(xpath = "(//input[@placeholder='Email'])[1]")
 
 	private WebElement username;
 
-	@FindBy(xpath = "//*[@id=\"indiviual_form\"]/div/div[2]/div/div/input")
+	@FindBy(xpath = "(//input[@placeholder='Password'])[1]")
 	private WebElement pwd;
 
-	@FindBy(xpath = "//*[@id=\"indiviual_form\"]/div/div[3]/button")
+	@FindBy(xpath = "(//button[text()='Take me in!'])[1]")
 	private WebElement lgbtn;
 		
-	@FindBy(xpath = "/html/body/div[3]/div/div/div[3]/button[2]")
+	@FindBy(xpath = "//button[text()=' Login']")
 	private WebElement loginpop;
 
 	

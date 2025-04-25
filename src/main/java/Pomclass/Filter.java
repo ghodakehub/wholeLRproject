@@ -129,13 +129,5 @@ public class Filter extends BasePage1 {
 				Library.click(driver, tribunalcourtAAAR, "click on AAAR Under TribunalCourt");
 
 			
-				Thread.sleep(2000);
-				//Library.waitForVisibilityOf(driver, tribunalcourtAAAROptionAP);
-				//Library.click(driver, tribunalcourtAAAROptionAP, "click on Andrapradesh in AAAR Under TribunalCourt");
-			//	JavascriptExecutor js1 = (JavascriptExecutor) BaseLib.driver;
-			//	js1.executeScript("arguments[0].click();",tribunalcourtAAAROptionAP );
-			//	Thread.sleep(3000);
-
-			
 		}
 }

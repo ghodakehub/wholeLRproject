@@ -1,22 +1,19 @@
 package Pomclass;
 
-import java.time.Duration;
+import java.io.File;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
-import java.util.Set;
-
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import com.aventstack.extentreports.ExtentTest;
-
-import UtilityClass.Library;
-import io.qameta.allure.Allure;
-
+import generic.EmailUtility;
 public class NewActList extends BasePage1 {
 
 	public NewActList(WebDriver driver) {
@@ -31,95 +28,93 @@ public class NewActList extends BasePage1 {
 	
 	@FindBy(xpath = "//*[@id=\"centralActType\"]")
 	private WebElement Selecttype;
-	
-	
-	
-	
-		public void Actlist(WebDriver driver) throws InterruptedException
-		{
-			 Library.click(driver, ClickActlistbtn, "Click on actlist button");
-			 Library.threadSleep(3000);
-			 //Library.click(driver, ClickonNewActList, "Click on NewActlist Tab");
-		}
-		
-		public void verifyNewActlsit(WebDriver driver) {
-			
-			try {
-	          
-				
-	            WebElement newActsListButton = driver.findElement(By.linkText("NEW ACTS LIST"));
-	            newActsListButton.click();
+	   
+	    String downloadDir = "C:\\Users\\Super\\Downloads"; // Update to your folder
+	    String[] tabs = {"STATE LIST", "CENTRAL LIST", "NEW ACTS LIST"};
 
-	            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-	            wait.until(ExpectedConditions.presenceOfElementLocated(By.tagName("h1"))); 
+	    public void clicactlist() throws InterruptedException
+	    {
+	    	driver.findElement(By.xpath("/html/body/div[3]/main/a[2]/button")).click();
+	    	Thread.sleep(1000);
+	    }
+	    public void validateAllTabs() throws Exception {
+	        for (String tab : tabs) {
+	            navigateToTab(tab);
+	            validateDownloadButtons(tab);
+	        }
+	        
+	    }
 
-	          
-	            if (driver.findElements(By.tagName("body")).get(0).getText().trim().isEmpty()) {
-	                System.out.println("Page is blank. Test failed.");
-	                Allure.step("");
-	                System.out.println("Error URL: " + driver.getCurrentUrl());
-	                Allure.step("Error Url :"+driver.getCurrentUrl());
-	                
-	            } else {
-	                System.out.println("New Acts List page loaded successfully.");
+	    public void navigateToTab(String tabName) throws InterruptedException {
+	        WebElement tabElement = driver.findElement(By.linkText(tabName));
+	        tabElement.click();
+	        Thread.sleep(2000); 
+	    }
 
-	               
-	                List<WebElement> actsList = driver.findElements(By.xpath("//*[@id=\"result\"]/tr/td[1]/a")); 
+	    public void validateDownloadButtons(String tabName) throws Exception {
+	        List<WebElement> downloadButtons = driver.findElements(By.xpath("//a[contains(text(),'Download')]"));
 
-	              
-	                for (int i = 0; i < Math.min(actsList.size(), 5); i++) {
-	                    WebElement act = actsList.get(i);
-	                    String actName = act.getText();
-	                    System.out.println("Checking act: " + actName);
-	                    
-	                   
-	                    String originalWindow = driver.getWindowHandle();
-	                    
-
-	                   
-	                    act .click();
-
-	                    Thread.sleep(2000);
-	                    
-	                    
-	                    wait.until(new ExpectedCondition<Boolean>() {
-	                        public Boolean apply(WebDriver driver) {
-	                            return driver.getWindowHandles().size() > 1;
-	                        }
-	                    });
-
-	                    // Switch to the new tab
-	                    Set<String> windowHandles = driver.getWindowHandles();
-	                    for (String handle : windowHandles) {
-	                        if (!handle.equals(originalWindow)) {
-	                            driver.switchTo().window(handle);
-	                            break;
-	                        }
-	                    }
-	                    
-	                    
-	                    
-	                   
-	                    wait.until(ExpectedConditions.presenceOfElementLocated(By.tagName("body"))); 
-
-	                    
-	                    if (driver.findElements(By.tagName("body")).get(0).getText().trim().isEmpty()) {
-	                        System.out.println("Act page is blank: " + actName);
-	                        System.out.println("Error URL: " + driver.getCurrentUrl());
-	                    } else {
-	                        System.out.println("Act page loaded successfully: " + actName);
-	                    }
-
-	                    // Navigate back to the acts list
-	                    driver.close();
-	                    driver.switchTo().window(originalWindow);
-	                    
-	                }
+	        for (int i = 0; i < Math.min(downloadButtons.size(), 2); i++) {
+	            
+	            try {
+	                ((JavascriptExecutor) driver).executeScript(
+	                    "document.querySelectorAll('iframe[title=\"chat widget\"]')[0].style.display='none';");
+	            } catch (Exception e) {
+	                System.out.println("Chat widget not found or already hidden.");
 	            }
 
-	        } catch (Exception e) {
-	            e.printStackTrace();
-	        } 
+	            File before = getLatestFileFromDir(downloadDir);
+	            WebElement button = downloadButtons.get(i);
+
+	         
+	            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", button);
+
+	            Thread.sleep(5000); 
+	           
+	            String pageSource = driver.getPageSource().toLowerCase();
+	            if (pageSource.contains("http error 500") || pageSource.contains("this page isn’t working")) {
+	                System.out.println("Server error after clicking download on tab: " + tabName);
+	                takeScreenshot(tabName + "_ServerError_" + i + ".png");
+	                generic.AllureListeners.captureScreenshot(driver, "pdf error");
+		            String[] recipients = {
+		            	    "ghodake6896@gmail.com"
+		            	    
+		            	     
+		            	    
+		            	};
+
+		            EmailUtility.sendSummaryEmailWithScreenshots(driver, recipients, 
+		            	    "LR -Actlist download pdf ",
+		            	    "Please check issue in actlist while downlaoding pdf for tab :"+tabName+ ", see the attached screenshot for details", 
+		            	  generic. Library.errorUrls, 
+		            	  generic.  Library. screenshotBytesList);
+	                
+	                
+	                continue;
+	            }
+
+	            File after = getLatestFileFromDir(downloadDir);
+	            if (before == null || after == null || before.getName().equals(after.getName())) {
+	                System.out.println("Download FAILED on tab: " + tabName);
+	                takeScreenshot(tabName + "_DownloadFail_" + i + ".png");
+	                
+	            } else {
+	                System.out.println("Download SUCCESSFUL on tab: " + tabName);
+	            }
+	        }
 	    }
-	
-}
+
+	    public File getLatestFileFromDir(String dirPath) {
+	        File dir = new File(dirPath);
+	        File[] files = dir.listFiles(File::isFile);
+	        if (files == null || files.length == 0) return null;
+	        return Arrays.stream(files).max(Comparator.comparingLong(File::lastModified)).orElse(null);
+	    }
+
+	    public void takeScreenshot(String fileName) throws Exception {
+	        File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+	        FileUtils.copyFile(scrFile, new File("D:\\Legitquest\\Screenshots" + fileName));
+	    }
+
+			} 
+

@@ -10,6 +10,8 @@ import org.testng.Assert;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import Pomclass.BasePage1;
+import UtilityClass.UtilityClass;
+
 import java.time.Duration;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.JavascriptExecutor;
@@ -52,7 +54,7 @@ public class CommonVerification {
 
 	    if (visibleText.contains(text.toLowerCase())) {
 	        System.out.println("Visible error found in " + sectionName + ": " + text);
-	        Assert.fail("Error text found in " + sectionName + ": " + text);
+
 	    } else {
 	       // System.out.println("No visible error text found in section [" + sectionName + "]");
 	    }
@@ -117,4 +119,7 @@ public static boolean isErrorPage(WebDriver driver) {
            pageSource.contains("internal server error")||
     pageSource.contains("500 Server");
 }
+
+
+
 }

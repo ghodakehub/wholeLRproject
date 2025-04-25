@@ -13,6 +13,7 @@ import UtilityClass.UtilityClass;
 import generic.ConfingData_provider;
 import generic.ForMultiplemailReceipent;
 import generic.NewBaseTest;
+import generic.RetryAnalyzer;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 @Epic("Profile - My BookMarks")
@@ -20,7 +21,7 @@ import io.qameta.allure.Feature;
 public class MyBookmarkspagination extends NewBaseTest {
 	
 	
-	@Test
+	@Test(retryAnalyzer = RetryAnalyzer.class)
 	public void verifyMyBookmarkspaginations() throws InterruptedException, IOException
 	
 	{

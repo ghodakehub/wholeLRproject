@@ -41,7 +41,7 @@ public class LatestLegalPageBrokenLink2 extends BasePage1 {
 		return clickbtn;
 	}
 
-	        public void checkAllArticleImages() throws InterruptedException {
+	        public List<String> checkAllArticleImages() throws InterruptedException {
 	        	clickbtn.click();
 	  		  Thread.sleep(2000);
 	        
@@ -92,5 +92,9 @@ public class LatestLegalPageBrokenLink2 extends BasePage1 {
 	  	    driver.switchTo().window(baseTab);
 	  	    Thread.sleep(1000);
 	  	}
+	  	
+
+	    return brokenPageUrls;
+	}
 }
-}
+

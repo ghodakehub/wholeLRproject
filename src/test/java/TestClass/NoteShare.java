@@ -11,6 +11,7 @@ import UtilityClass.UtilityClass;
 import generic.ConfingData_provider;
 import generic.ForMultiplemailReceipent;
 import generic.NewBaseTest;
+import generic.RetryAnalyzer;
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -18,7 +19,7 @@ import io.qameta.allure.Feature;
 @Feature("Verify Notebook Option")
 public class NoteShare extends NewBaseTest{
 	
-	@Test
+	@Test(retryAnalyzer = RetryAnalyzer.class)
 	@Description("Verify sharedNotebook options under the 'My Note'Ensure that can user share notebook")
 		    
 	public void verifynewnote() throws InterruptedException, IOException
@@ -34,7 +35,7 @@ public class NoteShare extends NewBaseTest{
 	@AfterMethod
 	public void finish(ITestResult result) throws IOException, MessagingException
 	{
-	if(ITestResult.FAILURE==result.getStatus())
+		if (result.getStatus() == ITestResult.FAILURE && result.getThrowable() != null)
 	{
 		String screenshot=  UtilityClass.Capaturescreenshot(driver,result.getName() );
 	

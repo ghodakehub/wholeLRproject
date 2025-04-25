@@ -1,6 +1,7 @@
 package Pomclass;
 
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -13,6 +14,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import generic.CommonVerification;
 
 public class MyBookmarks extends BasePage1 {
 
@@ -39,11 +42,12 @@ public class MyBookmarks extends BasePage1 {
 	private WebElement deletemessage;
 
 	
-		public void validateBookmarks(WebDriver driver) throws InterruptedException {
+	public List<String> validateBookmarks(WebDriver driver) throws InterruptedException {
 			Actions act=new Actions(driver);
 			act.moveToElement( profilename).perform();
 			Thread.sleep(3000);
 			mybookmarks.click();
+			 List<String> brokenUrls = new ArrayList<>();
 		    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 		    String originalTab = driver.getWindowHandle();
 
@@ -57,7 +61,7 @@ public class MyBookmarks extends BasePage1 {
 		        WebElement link = driver.findElements(By.xpath("//table//tr/td[2]/a")).get(i);
 		        String titleText = link.getText();
 		        System.out.println("Checking link: " + titleText);
-
+		        Thread.sleep(2000);
 		 
 		        String clickScript = "window.open(arguments[0].href,'_blank');";
 		        ((JavascriptExecutor) driver).executeScript(clickScript, link);
@@ -68,14 +72,18 @@ public class MyBookmarks extends BasePage1 {
 		        for (String tab : allTabs) {
 		            if (!tab.equals(originalTab)) {
 		                driver.switchTo().window(tab);
+		                if (CommonVerification.isErrorPage(driver)) {
+       	                    brokenUrls.add(driver.getCurrentUrl());
+       	                }
 		                break;
 		            }
 		        }
 		        driver.close();
-		        Thread.sleep(2000);
+		        Thread.sleep(3000);
 		        driver.switchTo().window(originalTab);
 		    }
-		    Thread.sleep(2000);
+		    Thread.sleep(3000);
+			return brokenUrls;
 	
 	}
 

@@ -14,6 +14,7 @@ import UtilityClass.UtilityClass;
 import generic.ConfingData_provider;
 import generic.ForMultiplemailReceipent;
 import generic.NewBaseTest;
+import generic.RetryAnalyzer;
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -23,7 +24,7 @@ public class JudgmentAddNote extends NewBaseTest {
 
 
 	
-	@Test
+	@Test(retryAnalyzer = RetryAnalyzer.class)
 	@Description(
 		    "Validate the 'Add Note' functionality on the judgment page:\n" +
 		    "- Ensure that clicking the note icon opens the note input popup or section.\n" +

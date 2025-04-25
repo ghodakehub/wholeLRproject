@@ -16,6 +16,7 @@ import UtilityClass.UtilityClass;
 import generic.ConfingData_provider;
 import generic.ForMultiplemailReceipent;
 import generic.NewBaseTest;
+import generic.RetryAnalyzer;
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -24,7 +25,7 @@ import io.qameta.allure.Feature;
 public class JudgmentPrintPdfFeature extends NewBaseTest{
 
 	
-	@Test
+	@Test(retryAnalyzer = RetryAnalyzer.class)
 	@Description(
 		    "Validate the 'Print Judgment' functionality ensure that download the pdf successfully with selecting one cloumn and two cloumn options"
 		    

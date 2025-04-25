@@ -16,6 +16,7 @@ import UtilityClass.UtilityClass;
 import generic.ConfingData_provider;
 import generic.ForMultiplemailReceipent;
 import generic.NewBaseTest;
+import generic.RetryAnalyzer;
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -25,13 +26,13 @@ public class ThirdPageButtonsVerification extends NewBaseTest{
 
 
 	
-	@Test
+	@Test(retryAnalyzer = RetryAnalyzer.class)
 	@Description(
 		    "Validate all key components of the Judgment page:\n" +
-		    	    "- Verify presence and correctness of IDraf sections: Issue, Facts, Argument of Petitioner, Argument of Respondent, Reasoning, and Decision.\n" +
-		    	    "- Ensure that each section contains accurate and structured legal content.\n" +
-		    	    "- Check functionality of all social media share icons (WhatsApp, Facebook, Twitter, LinkedIn, Email) present on the right sidebar.\n" +
-		    	    "- Confirm that clicking each icon opens in a new tab or window."
+		    	    "- Verify download judgement .\n" +
+		    	    "- Ensure shared judgement,checking Nightmode, ReprotProblem"
+		    	    
+		    	    
 		    	)
 	public void verifythirdpagesbuttons() throws InterruptedException, IOException
 	

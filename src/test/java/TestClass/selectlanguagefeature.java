@@ -11,6 +11,7 @@ import UtilityClass.UtilityClass;
 import generic.ConfingData_provider;
 import generic.ForMultiplemailReceipent;
 import generic.NewBaseTest;
+import generic.RetryAnalyzer;
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -18,7 +19,7 @@ import io.qameta.allure.Feature;
 @Feature("Verify select Language Functionality")
 public class selectlanguagefeature extends NewBaseTest {
 
-	@Test
+	@Test(retryAnalyzer = RetryAnalyzer.class)
 	@Description("This test verify Selects language from the language dropdown and its convert or display the judgement selected language")
 	public void verifylanguagefunctionality() throws InterruptedException, IOException
 	
@@ -33,7 +34,7 @@ public class selectlanguagefeature extends NewBaseTest {
 	@AfterMethod
 	public void finish(ITestResult result) throws IOException, MessagingException
 	{
-	if(ITestResult.FAILURE==result.getStatus())
+		if (result.getStatus() == ITestResult.FAILURE && result.getThrowable() != null)
 	{
 		String screenshot=  UtilityClass.Capaturescreenshot(driver,result.getName() );
 	

@@ -16,6 +16,7 @@ import UtilityClass.UtilityClass;
 import generic.ConfingData_provider;
 import generic.ForMultiplemailReceipent;
 import generic.NewBaseTest;
+import generic.RetryAnalyzer;
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -25,7 +26,7 @@ public class Filterbybench extends NewBaseTest {
 
 	
 	
-	@Test
+	@Test(retryAnalyzer = RetryAnalyzer.class)
 	@Description("Verify the functionality of filter options on the search results page using By Bench,By Year, and By Decision and verifies the results")
 	public void verifyfilter() throws InterruptedException, IOException
 	
