@@ -88,7 +88,7 @@ public class HeaderOptions extends BasePage1 {
 
 	        System.out.println("Checking header: " + headerText);
 	        actions.moveToElement(header).perform();
-	        Thread.sleep(1000); // wait for dropdown to show
+	        Thread.sleep(1000); 
 
 	        String dropdownXPath = "(//header/nav/div/div[1]/ul/li)[" + i + "]/ul/li/a";
 	        List<WebElement> dropdownItems = driver.findElements(By.xpath(dropdownXPath));
@@ -102,7 +102,7 @@ public class HeaderOptions extends BasePage1 {
 
 	            System.out.println(" → Clicking: " + itemText);
 	            wait.until(ExpectedConditions.elementToBeClickable(item)).click();
-	            driver.navigate().back(); // go back
+	            driver.navigate().back(); 
 
 	            // Re-hover header again after navigating back
 	            header = driver.findElement(By.xpath(headerXPath));

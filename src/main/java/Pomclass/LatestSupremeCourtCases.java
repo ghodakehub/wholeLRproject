@@ -51,12 +51,10 @@ public class LatestSupremeCourtCases extends BasePage1 {
 	            caseElements = driver.findElements(By.xpath("//*[@id='result']/div/div/a"));
 	            WebElement element = caseElements.get(i);
 
-	            // Save handles before click
 	            Set<String> handlesBefore = driver.getWindowHandles();
 
 	            try {
 	                ((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
-	                // Wait until new tab opens
 	                wait.until(d -> d.getWindowHandles().size() > handlesBefore.size());
 
 	                

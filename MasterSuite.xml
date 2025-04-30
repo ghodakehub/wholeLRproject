@@ -42,16 +42,11 @@
            <class name="TestClass.LatestCasesForTribunalCourt"/>
              
             <class name="TestClass.ActListAmendmentTimeline"/>
-             
-            <class name="TestClass.ActListCentralTimeline"/>
-            
-             <class name="TestClass.ActListfeatureForState"/>
+    
              
               <class name="TestClass.ActListFeatureStatePdf"/>
                  
               <class name="TestClass.ActlistForCentrallist"/>
-                      
-              <class name="TestClass.ActListPaginationForCentral"/>
               
               <class name="TestClass.ActListPdfDwn"/>
                     
@@ -60,8 +55,6 @@
                <class name="TestClass.HambugerTest"/>
                
                <class name="TestClass.Headerslinksfeature"/>
-               
-               <class name="TestClass.Headersoptionsfeatures"/>
                
                <class name="TestClass.JudgementCitedinfeatures"/>
                

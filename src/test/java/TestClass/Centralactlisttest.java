@@ -9,8 +9,10 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import Pomclass.CentralActList;
 import Pomclass.Login;
+import UtilityClass.UtilityClass;
 import generic.ConfingData_provider;
 import generic.EmailUtility;
+import generic.ForMultiplemailReceipent;
 import generic.NewBaseTest;
 import generic.RetryAnalyzer;
 import io.qameta.allure.Allure;
@@ -35,34 +37,35 @@ public class Centralactlisttest extends NewBaseTest {
 
 		 Allure.step("Click on Central actlsit and central actlist tab");
 		 CentralActList central= new CentralActList(driver);
-		 central.checkAllActLinks();
 		 Allure.step("Click on all links and paginations");
 		 
-		 List<String> brokenUrls = central.checkAllActLinks();
-		 if (!brokenUrls.isEmpty()) {
-			 generic.AllureListeners.captureScreenshot(driver, "Actlistpage error");
-	            String[] recipients = {
-	            	    "ghodake6896@gmail.com"
-	            	    
-	            	     
-	            	    
-	            	};
+		 List<String> brokenurls = central.checkAllActLinks();
 
-	            EmailUtility.sendSummaryEmailWithScreenshots(driver, recipients, 
-	            	    "CentralActlist Links",
-	            	    "Please check issue coming on central actlist links , see the attached screenshot for details", 
-	            	  generic. Library.errorUrls, 
-	            	  generic.  Library. screenshotBytesList);
-	            Assert.fail("Test Case Failed: LR changepassword page");
-         } 
-                else{
-                	System.out.println();
-                }
-		 }
+	        if (!brokenurls.isEmpty()) {
+	            String screenshot = UtilityClass.Capaturescreenshot(driver, "Error_on_actlist");
+
+
+	            StringBuilder urlList = new StringBuilder();
+	            for (String url : brokenurls) {
+	                urlList.append(url).append("\n");
+	            }
+
+	            ForMultiplemailReceipent.sendEmail(
+	                driver,
+	                new String[]{"ghodake6896@gmail.com"},
+	                "ActList For Central - Error Found",
+	                "Hi,\n\nPlease find below The content is not displaying correctly, and some actlsit appear to be broken or missing .please check URLs :\n\n" + urlList.toString() +
+	                "\n\nScreenshot is attached for your reference.",
+	                screenshot,
+	                "https://legitquest.com/actlist#"
+	            );
+	        } else {
+	            System.out.println("No bad URLs found.");
+	        }
 		           
 	}
-	
-	
+}
+
 	
 
 

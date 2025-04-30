@@ -80,7 +80,7 @@ public class Filterwithbyyear extends BasePage1 {
 		
 
 		
-		//Library.waitForVisibilityOf(driver, decision);
+		
 		Library.click(driver,decision , "click on ByDecision");
 		Library.threadSleep(2000);
 		

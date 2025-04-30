@@ -3,14 +3,13 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="TestClass.ThridPageSocailmedialinks">
+      <class name="TestClass.Headerslinksfeature">
         <methods>
-          <include name="verifythirdpagesbuttons"/>
           <include name="launchBrowser"/>
-          <include name="finish"/>
           <include name="closeBrowser"/>
+          <include name="VerifyHeadersLinks"/>
         </methods>
-      </class> <!-- TestClass.ThridPageSocailmedialinks -->
+      </class> <!-- TestClass.Headerslinksfeature -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

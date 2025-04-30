@@ -7,6 +7,8 @@ import java.util.Set;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -17,37 +19,24 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import generic.CommonVerification;
 import generic.PaginationsUtility;
 
-public class CentralActList extends BasePage1 {
-
-	public CentralActList(WebDriver driver) {
-		super(driver);
-	}
-	@FindBy(xpath = "(//button[@class='btn btn-warning latest-case-link btn-sm d-flex align-items-center'])[2]")
-	private WebElement ClickActlistbtn;
+public class NewStateActList extends BasePage1 {
 	
-	
-	@FindBy(xpath = "//*[@id=\"court-tabs\"]/li[2]/a")
-	private WebElement centralactlist;
-	
-	
-	public List<String> checkAllActLinks() throws InterruptedException {
-	    ClickActlistbtn.click(); 
-	    Thread.sleep(2000);
-
-	    centralactlist.click();
-
-	    new WebDriverWait(driver, Duration.ofSeconds(10)).until(
-	        ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(text(),'')]"))
-	    );
-
-	    
-	    ((JavascriptExecutor) driver).executeScript("window.scrollBy(0, 300);");
-	    
-	    List<String> brokenUrls = new ArrayList<>();
-	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-
-	    String mainWindow = driver.getWindowHandle();
-	    boolean hasNext = true;
+		public NewStateActList(WebDriver driver) {
+			super(driver);
+			
+		}
+		@FindBy(xpath = "(//button[@class='btn btn-warning latest-case-link btn-sm d-flex align-items-center'])[2]")
+		private WebElement ClickActlistbtn;
+		
+    WebDriverWait wait= new WebDriverWait(driver, Duration.ofSeconds(10));
+    public List<String> checkAllActsInStateList() throws InterruptedException {
+    	ClickActlistbtn.click();
+    	Thread.sleep(2000);
+        List<String> brokenUrls = new ArrayList<>();
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        driver.get("https://www.legitquest.com/actlist");
+        String mainWindow = driver.getWindowHandle();
+        boolean hasNext = true;
 
         while (hasNext) {
             List<WebElement> actLinks = driver.findElements(By.cssSelector("a.act-link"));
@@ -82,7 +71,7 @@ public class CentralActList extends BasePage1 {
                     ));
 
                     String pageHeading = actTitle.getText().trim();
-                   // System.out.println("Page heading found: " + pageHeading);
+                    System.out.println("Page heading found: " + pageHeading);
 
                     if (pageHeading.isEmpty() || pageHeading.contains("Page Not Found") || pageHeading.contains("Error")) {
                         System.out.println("Error detected based on heading content!");
@@ -111,4 +100,6 @@ public class CentralActList extends BasePage1 {
         return brokenUrls;
     }
 }
+
+
 

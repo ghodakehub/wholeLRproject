@@ -8,6 +8,7 @@ import java.util.Set;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -71,8 +72,36 @@ public class NewActList_AllLinks extends BasePage1 {
 	                    }
 	                }
 
-	                if (CommonVerification.isErrorPage(driver)) {
-	                    brokenUrls.add(driver.getCurrentUrl());
+	                Thread.sleep(2000);
+
+	                boolean isErrorPage = CommonVerification.isErrorPage(driver);
+	                boolean isContentMissing = false;
+	                String currentUrl = driver.getCurrentUrl(); // Capture URL of opened act page
+
+	                try {
+	                    WebElement actTitle = wait.until(ExpectedConditions.visibilityOfElementLocated(
+	                        By.xpath("//div[@id='actHead']/h1")
+	                        
+	                    ));
+	                    Thread.sleep(3000);
+	                    String pageHeading = actTitle.getText().trim();
+	                    Thread.sleep(1000);
+	                    System.out.println("Page heading found: " + pageHeading);
+
+	                    if (pageHeading.isEmpty() || pageHeading.contains("Page Not Found") || pageHeading.contains("Error")) {
+	                        System.out.println("Error detected based on heading content!");
+	                        isContentMissing = true;
+	                    } else {
+	                        System.out.println(" Act page opened successfully.");
+	                    }
+
+	                } catch (TimeoutException e) {
+	                    System.out.println(" Heading not found - Possible Error page.");
+	                    isContentMissing = true;
+	                }
+
+	                if (isErrorPage || isContentMissing) {
+	                    brokenUrls.add(currentUrl);  
 	                }
 
 	                driver.close();

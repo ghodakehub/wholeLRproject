@@ -4,15 +4,11 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.mail.MessagingException;
-
 import org.testng.annotations.Test;
-
 import Pomclass.Login;
 import Pomclass.NewActList_AllLinks;
-import Pomclass.StateActListpage;
 import UtilityClass.UtilityClass;
 import generic.ConfingData_provider;
-import generic.EmailUtility;
 import generic.ForMultiplemailReceipent;
 import generic.NewBaseTest;
 import generic.RetryAnalyzer;
@@ -40,24 +36,30 @@ public class NewActlist_AllLinkstest extends NewBaseTest {
 		
 		 NewActList_AllLinks state= new NewActList_AllLinks(driver);
 		 
-		 List<String> brokenLinks = state.checkAllActLinks();
+		 List<String> brokenurls = state.checkAllActLinks();
 
-		    if (!brokenLinks.isEmpty()) {
-		    	generic.AllureListeners.captureScreenshot(driver, "Newactlinks error");
-		    	 String screenshot=  UtilityClass.Capaturescreenshot(driver ,"supremecourtcases error" );
-	             	
-	         		String testUrl = driver.getCurrentUrl();  
-	         		 ForMultiplemailReceipent.sendEmail(
-	                    	   driver, new String[]{"ghodake6896@gmail.com"},
-	                    	    "Actlist- Newactlist",
-	                    	    "Please check Issue of broken links detected while checkig NewActList links , please find the attached screenshot for details." ,
-	                    	 screenshot , testUrl
-	                    	   
-	                    	);
-		
-		         } else {
-		             System.out.println("All links open successfully");
-		         }
+	        if (!brokenurls.isEmpty()) {
+	            String screenshot = UtilityClass.Capaturescreenshot(driver, "Error_on_actlist");
+
+
+	            StringBuilder urlList = new StringBuilder();
+	            for (String url : brokenurls) {
+	                urlList.append(url).append("\n");
+	            }
+
+	            ForMultiplemailReceipent.sendEmail(
+	                driver,
+	                new String[]{"ghodake6896@gmail.com"},
+	                "ActList For NewActList - Error Found",
+	                "Hi,\n\nPlease The content is not displaying correctly, and some actlist appear to be broken please check URLs error detected:\n\n" + urlList.toString() +
+	                "\n\nScreenshot is attached for your reference.",
+	                screenshot,
+	                "https://legitquest.com/actlist#"
+	            );
+	        } else {
+	            System.out.println("No broken URLs found.");
+	        }
+		           
 	
 	}
 }

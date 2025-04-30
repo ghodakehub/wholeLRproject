@@ -39,14 +39,14 @@ public class StateActList extends NewBaseTest {
 		 List<String> brokenLinks = state.checkAllActLinks();
 
 		    if (!brokenLinks.isEmpty()) {
-		    	 generic.AllureListeners.captureScreenshot(driver, "Patrol dashboard error");
-		    	 String screenshot=  UtilityClass.Capaturescreenshot(driver ,"supremecourtcases error" );
+		    	 generic.AllureListeners.captureScreenshot(driver, "Stateactlist error");
+		    	 String screenshot=  UtilityClass.Capaturescreenshot(driver ,"statelist error" );
 	             	
 	         		String testUrl = driver.getCurrentUrl();  
 	         		 ForMultiplemailReceipent.sendEmail(
 	                    	   driver, new String[]{"ghodake6896@gmail.com"},
-	                    	    "Actlist- statactlist",
-	                    	    "Please check Issue of broken links detected while checkig StateActList links , please find the attached screenshot for details." ,
+	                    	    "Actlist- StateActlist",
+	                    	    "Please check Issue of broken links detected while checkig StateActList links and in SomeActList The content is not displaying correctly , please find the attached screenshot for details." ,
 	                    	 screenshot , testUrl
 	                    	   
 	                    	);
