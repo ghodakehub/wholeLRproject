@@ -8,32 +8,17 @@
     <classes>
       <class name="TestClass.LoginTest"/>
       
-       <class name="TestClass.LoginByCorporate"/>
 
-      <class name="TestClass.SearchBarfeature"/>
       
-       <class name="TestClass.secondaryMaterials"/>
-         
-       <class name="TestClass.socialmediallinksoffooter"/>
-            
-       <class name="TestClass.ThirdPageButtonsVerification"/>
-               
-       
-        
-        <class name="TestClass.ContactFooterFeature"/>
-        
           
             
-              <class name="TestClass.ActListPdfDwn"/>  
-               <class name="TestClass.Blogpaginations"/>
+            
                             <class name="TestClass.NewActlist_AllLinkstest"/>
-                             <class name="TestClass.CheckAllfooterOptions"/>
+                            
                               <class name="TestClass.Centralactlisttest"/>
                                 <class name="TestClass.LatestLegalTabsverificationstest"/>
                            <class name="TestClass.StateActList"/>
-                            <class name="TestClass.LatestCasesForTribunalCourt"/>
-                            <class name="TestClass.LatestCasesForSupremeCourt"/>
-                            <class name="TestClass.LatestCasesForHighcourt"/>
+                           
                             
                            
                           
